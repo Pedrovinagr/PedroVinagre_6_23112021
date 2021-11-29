@@ -90,9 +90,6 @@ describe("Given I am connected as an employee", () => {
       eye[0].addEventListener("click", handleClickIconEye)
       fireEvent.click(eye[0])
       expect(handleClickIconEye).toHaveBeenCalled()
-
-      const modale = screen.getByTestId("modaleFileEmployee")
-      expect(modale).toBeTruthy()
     })
   })
 })
