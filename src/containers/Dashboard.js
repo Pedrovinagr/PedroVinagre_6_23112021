@@ -146,10 +146,10 @@ export default class {
         .html("")
       this.counter ++
     }
-
-    // filteredBills(bills, getStatus(this.index)).forEach(bill => {
-    //   $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
-    // })
+    // consulter les tickets de chacune des deux listes.
+    filteredBills(bills, getStatus(this.index)).forEach(bill => {
+      $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
+    })
     bills.forEach(bill => {
       $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
     })

@@ -15,32 +15,37 @@ export default class NewBill {
     this.fileName = null
     new Logout({ document, localStorage, onNavigate })
   }
+  
   handleChangeFile = e => {
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
-    // const extAllowed = /(\.jpg|\.jpeg|\.png)$/i; 
-    // const borderFile = document.querySelector(`input[data-testid="file"]`);
-    // if (extAllowed.exec(file.name)){
-    //   borderFile.classList.remove("red-border");
-    //   if (this.firestore) {
-    this.firestore
-      .storage
-      .ref(`justificatifs/${fileName}`)
-      .put(file)
-      .then(snapshot => snapshot.ref.getDownloadURL())
-      .then(url => {
-        this.fileUrl = url
-        this.fileName = fileName
-      })
-    // }
-    // document.getElementById("btn-send-bill").disabled = false;
-    //   alert (fileName+' added')
-    // } else {
-    //   document.getElementById("btn-send-bill").disabled = true;
-    //   borderFile.classList.add("red-border");
-    //   alert ("merci d'utiliser l'un des formats valides (jpg, jpeg ou png)")}
+    // image file variable
+    const extAllowed = /(\.jpg|\.jpeg|\.png)$/i; 
+    const borderFile = document.querySelector(`input[data-testid="file"]`);
+    // image file extension condition
+    if (extAllowed.exec(file.name)){
+      borderFile.classList.remove("red-border");
+      if (this.firestore) {
+        this.firestore
+          .storage
+          .ref(`justificatifs/${fileName}`)
+          .put(file)
+          .then(snapshot => snapshot.ref.getDownloadURL())
+          .then(url => {
+            this.fileUrl = url
+            this.fileName = fileName
+          }
+        )
+      }
+      document.getElementById("btn-send-bill").disabled = false;
+        alert (fileName+' added')
+    } else {
+      document.getElementById("btn-send-bill").disabled = true;
+      borderFile.classList.add("red-border");
+      alert ("merci d'utiliser l'un des formats valides (jpg, jpeg ou png)")}
   }
+
   handleSubmit = e => {
     e.preventDefault()
     console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
